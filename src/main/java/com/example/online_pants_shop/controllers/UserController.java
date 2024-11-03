@@ -1,11 +1,14 @@
 package com.example.online_pants_shop.controllers;
 
-import com.example.online_pants_shop.dto.user.request.UserRequestDTO;
+import com.example.online_pants_shop.controllers.constant.ShopConstants;
+import com.example.online_pants_shop.dto.user.request.CreateUserDTO;
 import com.example.online_pants_shop.dto.user.response.UserResponseDTO;
 import com.example.online_pants_shop.entities.User;
 import com.example.online_pants_shop.exception.RegistrationException;
 import com.example.online_pants_shop.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -21,22 +24,23 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;
 
     @Operation(summary = "register user", description = "Register new user")
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDTO> registerUser(@RequestBody UserRequestDTO userRequestDTO)
+    public ResponseEntity<UserResponseDTO> registerUser(@RequestBody CreateUserDTO createUserDTO)
         throws RegistrationException {
-        UserResponseDTO savedUser = userService.saveUser(userRequestDTO);
+        UserResponseDTO savedUser = userService.saveUser(createUserDTO);
         return ResponseEntity.ok(savedUser);
     }
 
     @Operation(summary = "Get all users", description = "Get al users from bd")
     @GetMapping
-    public List<UserResponseDTO> getAllUsers(Pageable pageable) {
+    public List<UserResponseDTO> getAllUsers(
+        @Parameter(example = ShopConstants.PAGEABLE_EXAMPLE_NAME) Pageable pageable) {
         return userService.getAllUsers(pageable);
     }
 
