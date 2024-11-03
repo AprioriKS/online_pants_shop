@@ -1,6 +1,6 @@
 package com.example.online_pants_shop.services.impl;
 
-import com.example.online_pants_shop.dto.user.request.UserRequestDTO;
+import com.example.online_pants_shop.dto.user.request.CreateUserDTO;
 import com.example.online_pants_shop.dto.user.response.UserResponseDTO;
 import com.example.online_pants_shop.entities.Role;
 import com.example.online_pants_shop.entities.User;
@@ -30,14 +30,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserResponseDTO saveUser(UserRequestDTO userRequestDTO) throws RegistrationException {
-        if (userRepository.findByEmail(userRequestDTO.email()).isPresent()) {
+    public UserResponseDTO saveUser(CreateUserDTO createUserDTO)  {
+        if (userRepository.findByEmail(createUserDTO.email()).isPresent()) {
             throw new RegistrationException("User with email "
-                + userRequestDTO.email() + " already exists");
+                + createUserDTO.email() + " already exists");
         }
-        User user = userMapper.toUser(userRequestDTO);
+        User user = userMapper.toUser(createUserDTO);
         assignUserRole(user);
-        user.setPassword(passwordEncoder.encode(userRequestDTO.password()));
+        user.setPassword(passwordEncoder.encode(createUserDTO.password()));
         userRepository.save(user);
         //shoppingCartService.createShoppingCart(user);
         return userMapper.toUserResponseDto(user);
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponseDTO> getAllUsers(Pageable pageable) {
-        return userRepository.findAll().stream()
+        return userRepository.findAll(pageable).stream()
             .map(userMapper::toUserResponseDto)
             .collect(Collectors.toList());
     }
