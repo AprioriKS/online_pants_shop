@@ -1,6 +1,7 @@
 package com.example.online_pants_shop.controllers;
 
 import com.example.online_pants_shop.controllers.constant.ShopConstants;
+import com.example.online_pants_shop.dto.category.request.ProductSearchParametersDto;
 import com.example.online_pants_shop.dto.product.request.CreateProductDto;
 import com.example.online_pants_shop.dto.product.request.UpdateProductDto;
 import com.example.online_pants_shop.dto.product.response.ProductResponseDto;
@@ -94,5 +95,11 @@ public class ProductController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
     return ResponseEntity.ok(productsOnSale);
+  }
+
+  @Operation(summary = "Get products by filter", description = "Retrieves all products by filter")
+  @GetMapping("/search")
+  public List<ProductResponseDto> search(ProductSearchParametersDto searchParametersDto) {
+    return productService.search(searchParametersDto);
   }
 }
