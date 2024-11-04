@@ -40,7 +40,7 @@ public class UserController {
     @Operation(summary = "Get all users", description = "Get al users from bd")
     @GetMapping
     public List<UserResponseDTO> getAllUsers(
-        @Parameter(example = ShopConstants.PAGEABLE_EXAMPLE_NAME) Pageable pageable) {
+        @Parameter(example = ShopConstants.PAGEABLE_EXAMPLE_EMAIL) Pageable pageable) {
         return userService.getAllUsers(pageable);
     }
 
