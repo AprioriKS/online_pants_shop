@@ -10,7 +10,10 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -23,6 +26,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomGlobalExceptionHandler.class);
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
@@ -65,6 +70,38 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
                 request);
     }
 
+    @ExceptionHandler(ParameterAlreadyExistsException.class)
+    protected ResponseEntity<Object> handleParameterAlreadyExistsException(
+        Exception ex, WebRequest request) {
+        return handleExceptionInternal(
+            ex,
+            ex.getMessage(),
+            new HttpHeaders(),
+            CONFLICT,
+            request);
+    }
+
+    @ExceptionHandler(DuplicateEntryException.class)
+    protected ResponseEntity<Object> DuplicateEntryException(
+        Exception ex, WebRequest request) {
+        return handleExceptionInternal(
+            ex,
+            ex.getMessage(),
+            new HttpHeaders(),
+            CONFLICT,
+            request);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    protected ResponseEntity<Object> handleEntityNotFound(
+        RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+            ex,
+            ex.getMessage(),
+            new HttpHeaders(),
+            NOT_FOUND,
+            request);
+    }
 
     private String getErrorMessage(ObjectError e) {
         if (e instanceof FieldError fieldError) {

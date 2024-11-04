@@ -35,6 +35,10 @@ public class Product {
     private Long id;
     @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
+    private String brand;
+    @Column(nullable = false)
+    private String color;
     @ManyToMany
     @JoinTable(
             name = "products_categories",
@@ -52,8 +56,9 @@ public class Product {
     private boolean isDeleted = false;
     @Column(nullable = false)
     private boolean isSales = false;
-
-    public Product(Long id) {
-        this.id = id;
-    }
+    @Column(nullable = false)
+    private String size;
+    @Column(nullable = false)
+    private int rating;
+    private String style;
 }

@@ -6,6 +6,11 @@ public class ShopConstants {
             "size": 5,
              "sort": "name,ASC"}""";
 
+  public static final String PAGEABLE_EXAMPLE_EMAIL = """
+            {"page": 0,
+            "size": 5,
+             "sort": "email,ASC"}""";
+
 
 public static final String PAGEABLE_EXAMPLE_PRICE = """
             {"page": 0,
