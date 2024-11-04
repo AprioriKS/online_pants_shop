@@ -9,6 +9,7 @@ import com.example.online_pants_shop.exception.EntityNotFoundException;
 import com.example.online_pants_shop.mappers.ProductMapper;
 import com.example.online_pants_shop.repositories.CategoryRepository;
 import com.example.online_pants_shop.repositories.ProductRepository;
+import com.example.online_pants_shop.repositories.product.ProductSpecificationBuilder;
 import com.example.online_pants_shop.services.ProductService;
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,7 @@ public class ProductServiceImpl implements ProductService {
   private final ProductRepository productRepository;
   private final CategoryRepository categoryRepository;
   private final ProductMapper productMapper;
+  private final ProductSpecificationBuilder productSpecificationBuilder;
 
   @Override
   @Transactional
@@ -142,8 +145,13 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
+  @Transactional
   public List<ProductResponseDto> search(ProductSearchParametersDto searchParameters) {
-    return List.of(); //тут буде реалізований фільтер
+    final Specification<Product> productSpecification = productSpecificationBuilder.build(searchParameters);
+    return productRepository.findAll(productSpecification)
+        .stream()
+        .map(productMapper::toDto)
+        .toList();
   }
 
   @Override
@@ -166,4 +174,6 @@ public class ProductServiceImpl implements ProductService {
         .map(productMapper::toDto)
         .collect(Collectors.toList());
   }
+
+
 }

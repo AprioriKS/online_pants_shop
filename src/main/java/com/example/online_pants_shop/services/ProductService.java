@@ -25,4 +25,5 @@ public interface ProductService {
   List<ProductResponseDto> findByCategoryId(Long categoryId);
 
   List<ProductResponseDto> findOnSale();
+
 }
