@@ -1,0 +1,125 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: "aprioriks"
+      changes:
+        - insert:
+            tableName: "categories"
+            columns:
+              - column:
+                  name: "name"
+                  value: "NEW"
+              - column:
+                  name: "description"
+                  value: "New arrivals"
+              - column:
+                  name: "is_deleted"
+                  valueNumeric: 0
+        - insert:
+            tableName: "categories"
+            columns:
+              - column:
+                  name: "name"
+                  value: "SALE"
+              - column:
+                  name: "description"
+                  value: "Discounted items"
+              - column:
+                  name: "is_deleted"
+                  valueNumeric: 0
+        - insert:
+            tableName: "categories"
+            columns:
+              - column:
+                  name: "name"
+                  value: "BRAS"
+              - column:
+                  name: "description"
+                  value: "Bra collection"
+              - column:
+                  name: "is_deleted"
+                  valueNumeric: 0
+        - insert:
+            tableName: "categories"
+            columns:
+              - column:
+                  name: "name"
+                  value: "PANTIES"
+              - column:
+                  name: "description"
+                  value: "Panties collection"
+              - column:
+                  name: "is_deleted"
+                  valueNumeric: 0
+        - insert:
+            tableName: "categories"
+            columns:
+              - column:
+                  name: "name"
+                  value: "LINGERIE"
+              - column:
+                  name: "description"
+                  value: "Lingerie sets"
+              - column:
+                  name: "is_deleted"
+                  valueNumeric: 0
+        - insert:
+            tableName: "categories"
+            columns:
+              - column:
+                  name: "name"
+                  value: "SETS"
+              - column:
+                  name: "description"
+                  value: "Matching sets"
+              - column:
+                  name: "is_deleted"
+                  valueNumeric: 0
+        - insert:
+            tableName: "categories"
+            columns:
+              - column:
+                  name: "name"
+                  value: "SWIMWEAR"
+              - column:
+                  name: "description"
+                  value: "Swimwear collection"
+              - column:
+                  name: "is_deleted"
+                  valueNumeric: 0
+        - insert:
+            tableName: "categories"
+            columns:
+              - column:
+                  name: "name"
+                  value: "SLEEPWEAR"
+              - column:
+                  name: "description"
+                  value: "Sleepwear items"
+              - column:
+                  name: "is_deleted"
+                  valueNumeric: 0
+        - insert:
+            tableName: "categories"
+            columns:
+              - column:
+                  name: "name"
+                  value: "HOME LINEN"
+              - column:
+                  name: "description"
+                  value: "Home linen"
+              - column:
+                  name: "is_deleted"
+                  valueNumeric: 0
+        - insert:
+            tableName: "categories"
+            columns:
+              - column:
+                  name: "name"
+                  value: "INDIVIDUAL TAILORING"
+              - column:
+                  name: "description"
+                  value: "Custom tailoring"
+              - column:
+                  name: "is_deleted"
+                  valueNumeric: 0
