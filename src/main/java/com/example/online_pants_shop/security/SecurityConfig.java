@@ -43,17 +43,18 @@ public class SecurityConfig  {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
 				.csrf(AbstractHttpConfigurer::disable)  // Вимикаємо CSRF
-				.cors(AbstractHttpConfigurer::disable)  // Вимикаємо CORS
-				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/")
-						.permitAll()
-						.anyRequest().authenticated()
-				)
-				.httpBasic(Customizer.withDefaults())
-				.sessionManagement(session -> session
-						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Stateless режим
-				.build();
-	}
+                                .cors(AbstractHttpConfigurer::disable)  // Вимикаємо CORS
+                                .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/")
+                                                .permitAll()
+                                                .anyRequest().authenticated()
+                                )
+                                .oauth2Login(Customizer.withDefaults())
+                                .httpBasic(Customizer.withDefaults())
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Stateless режим
+                                .build();
+        }
 
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
